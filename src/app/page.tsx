@@ -16,14 +16,26 @@ export default function Home() {
         fetchProducts();
     }, []);
 
+    if (products.length === 0) {
+        return (
+            <main>
+                <Navbar/>
+                <div className="container mx-auto">
+                    <h1 className="text-3xl font-bold">Products</h1>
+                    <p>Loading...</p>
+                </div>
+            </main>
+        )
+    }
+
     return (
       <main>
         <Navbar/>
         <div className="container mx-auto">
-            <h1 className="text-3xl font-bold">Products</h1>
+            <h1 className="text-3xl font-bold my-2">Products</h1>
             <div className="grid grid-cols-3 gap-4">
-                {products.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                {products.map((product, index) => (
+                    <ProductCard key={index} product={product} />
                 ))}
             </div>
         </div>

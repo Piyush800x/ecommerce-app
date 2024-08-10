@@ -16,7 +16,7 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
     const client: MongoClient = await dbConnect;
     const db: Db = client.db("Store");
     const data = await JSON.parse(req.headers.get('Metadata') || '{}'); 
-    console.log(data);
+    console.log(`Products: ${data}`);
 
     try {
         const product = await db.collection('products').insertOne(data);
