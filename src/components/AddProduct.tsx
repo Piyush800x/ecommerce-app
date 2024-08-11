@@ -1,11 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
-import NewSeller from '@/components/NewSeller';
-import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
-import Navbar from '@/components/Navbar';
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Command,
   CommandEmpty,
@@ -99,22 +98,21 @@ export default function AddProduct() {
     }, [value]);
 
     return (
-        <div className="container mx-auto">
-                <h1 className="text-3xl font-bold">Add Product</h1>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={formData.title}
+        <div className="container mx-auto flex flex-col justify-center items-center">
+                <h1 className="text-3xl font-bold mb-2">Add Product</h1>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-2 w-1/2'>
+                    <Input 
+                        type="text" 
+                        placeholder="Title" 
+                        value={formData.title} 
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     />
-                    <input
-                        type="text"
+                    <Textarea
                         placeholder="Description"
                         value={formData.description}
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     />
-                    <input
+                    <Input
                         type="number"
                         placeholder="Price"
                         value={formData.price}
@@ -163,13 +161,13 @@ export default function AddProduct() {
                             </Command>
                         </PopoverContent>
                         </Popover>
-                    <input
+                    <Input
                         type="text"
                         placeholder="Image URL"
                         value={formData.imageUrl}
                         onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                     />
-                    <button type="submit">Add Product</button>
+                    <Button type="submit">Add Product</Button>
                 </form>
             </div>
     )

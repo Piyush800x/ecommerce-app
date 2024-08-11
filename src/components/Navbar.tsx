@@ -7,7 +7,7 @@ export default function Navbar() {
     const {isAuthenticated} = useKindeBrowserClient();
 
     return (
-        <div className="sticky top-0 flex flex-row justify-between items-center w-full px-20 py-4 mb-4 text-white bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div className="sticky top-0 flex flex-row justify-between items-center w-full px-20 py-4 text-white bg-gradient-to-r from-cyan-500 to-blue-500">
             <h1 className='font-semibold'>ECommerce Store</h1>
             <div className='flex gap-2 w-1/2 items-center'>
                 <MagnifyingGlassIcon className='size-8'/>
