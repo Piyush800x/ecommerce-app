@@ -66,7 +66,7 @@ export default function Dashboard() {
     const [shopName, setShopName] = useState(`${localStorage.getItem("shopName")}`);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [value, setValue] = useState<any>('');
+    const [value, setValue] = useState('');
 
     // useEffect(() => {
     //     // const name = localStorage.getItem("shopName")
@@ -81,7 +81,7 @@ export default function Dashboard() {
         price: '',
         imageUrl: '',
         shopName: shopName,
-        // category: value
+        category: value
     });
 
     const verifyUserLocally = async () => {
@@ -137,9 +137,17 @@ export default function Dashboard() {
         }
     }, [isAuthenticated]);
 
+    useEffect(() => {
+        setFormData((prev) => ({
+            ...prev,
+            category: value,
+        }));
+    }, [value]);
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         console.log(formData)
+        console.log(`value ${value}`)
         const res = await fetch('/api/products', {
             method: 'POST',
             headers: {

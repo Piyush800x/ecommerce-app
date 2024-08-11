@@ -10,7 +10,7 @@ interface ProductCardProps {
         price: number;
         imageUrl: string;
         shopName: string,
-        // category: string;
+        category: string;
     };
 }
 
