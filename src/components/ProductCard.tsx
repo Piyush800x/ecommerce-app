@@ -1,10 +1,13 @@
 // components/ProductCard.tsx
 import { FC } from 'react';
 import { Button } from "@/components/ui/button"
+import Link from 'next/link';
+import { ObjectId } from 'mongodb';
 
 
 interface ProductCardProps {
     product: {
+        _id: ObjectId;
         title: string;
         description: string;
         price: number;
@@ -25,6 +28,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             <div className='flex gap-2 pt-2 w-full'>
                 <Button className='bg-blue-500 hover:bg-blue-400'>Buy now</Button>
                 <Button variant="outline">Add to cart</Button>
+                <Link href={`/products/${product._id}`}><Button variant="outline">View</Button></Link>
             </div>
         </div>
     );
