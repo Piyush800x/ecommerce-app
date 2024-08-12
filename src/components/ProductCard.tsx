@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
-
+import Image from 'next/image';
 
 interface ProductCardProps {
     product: {
@@ -20,7 +20,7 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
     return (
         <div className="border rounded-lg p-4">
-            <img src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded-lg" />
+            <Image src={`${product.imageUrl}`} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={192} height={192}/>
             <h2 className="text-xl font-bold mt-2">{product.title}</h2>
             <p className="text-gray-700">{product.description}</p>
             <p className="text-gray-700">{product.shopName}</p>

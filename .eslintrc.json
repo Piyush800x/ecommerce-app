@@ -1,3 +1,14 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "react-hooks/exhaustive-deps": [
+      "warn", // or 'off' to disable the rule completely
+      {
+        // Custom options
+        // You can disable the rule for certain hooks or specify options here
+        // For example, you can set `additionalDependencies` to include more dependencies
+        "additionalDependencies": ["verifyUser"]
+      }
+    ]
+  }
 }

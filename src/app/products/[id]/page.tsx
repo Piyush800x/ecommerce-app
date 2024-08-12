@@ -19,7 +19,7 @@ export default function ProductPage({params}: any) {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            console.log(`Page 3: ${params.id}`)
+            // console.log(`Page 3: ${params.id}`)
             try {
                 const res = await fetch('/api/getproductbyid', {
                     method: "POST",
@@ -30,9 +30,9 @@ export default function ProductPage({params}: any) {
                 })
                 const data = await res.json();
                 if (data.success) {
-                    console.log(data.products)
+                    // console.log(data.products)
                     setProduct(data.products);
-                    console.log(products);
+                    // console.log(products);
                 }
             }
             catch (error) {
@@ -43,7 +43,7 @@ export default function ProductPage({params}: any) {
             }
         }
         fetchProducts()
-    }, [])
+    }, [params.id])
 
     if (loading) {
         return (
@@ -58,12 +58,6 @@ export default function ProductPage({params}: any) {
     }
 
     return (
-        // <div className="container mx-auto p-4">
-        //     <h1 className="text-2xl font-bold">{product.title}</h1>
-        //     <p className="mt-4">{product.description}</p>
-        //     <p className="mt-4 text-lg font-semibold">Price: ${product.price}</p>
-        //     {/* Add more product details as needed */}
-        // </div>
         <main>
             <Navbar/>
             <div className="container mx-auto p-4">

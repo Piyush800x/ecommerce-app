@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from "react"
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 interface Product {
     _id: string;
@@ -55,7 +56,7 @@ export default function DeleteProduct() {
                 {products.map((product) => (
                     <li key={product._id} className="flex justify-between">
                         <div className="border rounded-lg p-4">
-                            <img src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded-lg" />
+                            <Image src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={400} height={200}/>
                             <h2 className="text-xl font-bold mt-2">{product.title}</h2>
                             <p className="text-gray-700">{product.description}</p>
                             <p className="text-gray-700">{product.shopName}</p>

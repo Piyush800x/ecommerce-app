@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import NewSeller from '@/components/NewSeller';
 import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 import Navbar from '@/components/Navbar';
