@@ -78,23 +78,7 @@ export function SidebarMain() {
                             ))}
                         </div>
                     </div>
-                    <div>
-                        <SidebarLink
-                            link={{
-                                label: "Manu Arora",
-                                href: "#",
-                                icon: (
-                                    <Image
-                                        src="/next.svg"
-                                        className="h-7 w-7 flex-shrink-0 rounded-full"
-                                        width={50}
-                                        height={50}
-                                        alt="Avatar"
-                                    />
-                                ),
-                            }}
-                        />
-                    </div>
+                    
                 </SidebarBody>
             </Sidebar>
             <div className="flex-1">
@@ -116,7 +100,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        Seller Panel
       </motion.span>
     </Link>
   );

@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 interface Product {
     _id: string;
@@ -63,52 +77,95 @@ const EditProduct = () => {
         }
     };
 
+    if (!products) {
+        return (
+            <div>
+                <h1 className='text-center text-2xl font-semibold'>Edit your products in {shopName}</h1>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
     return (
         <div>
+            <h1 className='text-center text-2xl font-semibold'>Edit your products in {shopName}</h1>
             <ul>
                 {products.map((product: any) => (
                     <li key={product._id}>
-                        <div>{product.title}</div>
-                        <button onClick={() => handleEditClick(product)}>Edit</button>
+                        {/* <div>{product.title}</div> */}
+                        <img src={product.imageUrl} alt={product.title} className="w-48 h-48 object-cover rounded-lg" />
+                        <h2 className="text-xl font-bold mt-2">{product.title}</h2>
+                        <p className="text-gray-700">{product.description}</p>
+                        <p className="text-gray-700">{product.shopName}</p>
+                        <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
+                        <button className='px-2 py-2 w-16 text-white rounded-md bg-blue-500 hover:bg-blue-400' onClick={() => handleEditClick(product)}>Open</button>
+                        {editingProduct && (
+                            <div>
+                                <Sheet>
+                                        <SheetTrigger asChild>
+                                            <Button className='my-2' onClick={() => handleEditClick(product)} variant="outline">Edit</Button>
+                                        </SheetTrigger>
+                                        <SheetContent>
+                                            <SheetHeader>
+                                            <SheetTitle>Edit product</SheetTitle>
+                                            <SheetDescription>
+                                                Make changes to your product here. Click save when you're done.
+                                            </SheetDescription>
+                                            </SheetHeader>
+                                            <div className="grid gap-4 py-4">
+                                                <form onSubmit={handleFormSubmit} className='flex flex-col gap-3'>
+                                                    <div className="grid grid-cols-4 items-center gap-4">
+                                                        <Label>
+                                                        Name
+                                                        </Label>
+                                                        <Input  
+                                                                type="text"
+                                                                name="name"
+                                                                value={formData.title || ''}
+                                                                onChange={handleInputChange} 
+                                                                className='w-max'
+                                                        />
+                                                    </div>
+                                                    <div className="grid grid-cols-4 items-center gap-4">
+                                                        <Label>
+                                                        Price
+                                                        </Label>
+                                                        <Input
+                                                            type="number"
+                                                            name="price"
+                                                            value={formData.price || ''}
+                                                            onChange={handleInputChange}
+                                                        />
+                                                    </div>
+                                                    <div className="grid grid-cols-4 items-center gap-4">
+                                                        <Label>
+                                                        Description
+                                                        </Label>
+                                                        <Input
+                                                            type="text"
+                                                            name="description"
+                                                            value={formData.description || ''}
+                                                            onChange={handleInputChange}
+                                                            className='w-max'
+                                                        />
+                                                        
+                                                    </div>
+                                                    <SheetClose asChild className='flex w-full'>
+                                                        <Button className='my-4' onSubmit={handleFormSubmit} type="submit">Save changes</Button>
+                                                    </SheetClose>        
+                                                </form>
+                                            </div>
+                                            {/* <SheetFooter>
+                                            
+                                            </SheetFooter> */}
+                                        </SheetContent>
+                                    </Sheet>
+                            </div>
+                
+            )}
                     </li>
                 ))}
             </ul>
-
-            {editingProduct && (
-                <form onSubmit={handleFormSubmit}>
-                    <h2>Edit Product</h2>
-                    <label>
-                        Name:
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.title || ''}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        Price:
-                        <input
-                            type="number"
-                            name="price"
-                            value={formData.price || ''}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        Description:
-                        <input
-                            type="text"
-                            name="description"
-                            value={formData.description || ''}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    {/* Add other fields as needed */}
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={() => setEditingProduct(null)}>Cancel</button>
-                </form>
-            )}
         </div>
     );
 };
