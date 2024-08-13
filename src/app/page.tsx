@@ -8,14 +8,14 @@ import {
     AlertDescription,
     AlertTitle,
   } from "@/components/ui/alert"
-import { ring2 } from 'ldrs'
+import { TailSpin } from 'react-loader-spinner';
 import { ObjectId } from 'mongodb';
 
 interface Product {
     _id: ObjectId;
     title: string;
     description: string;
-    price: number;
+    price: string;
     imageUrl: string;
     shopName: string,
     category: string;
@@ -50,22 +50,24 @@ export default function Home() {
 
     if (loading) {
         return (
-            <main>
-                <Navbar initialProducts={products}/>
-                <div className="container mx-auto">
-                    <h1 className="text-3xl font-bold">Products</h1>
-                    <div className='h-dvh flex items-center justify-center'>
-                        <l-ring-2
-                            size="40"
-                            stroke="5"
-                            stroke-length="0.25"
-                            bg-opacity="0.1"
-                            speed="0.8" 
-                            color="#2A92EB" 
-                        ></l-ring-2>
+                <main>
+                    <Navbar initialProducts={products}/>
+                    <div className="container mx-auto">
+                        <h1 className="text-3xl font-bold">Products</h1>
+                        <div className='h-dvh flex items-center justify-center'>
+                            <TailSpin
+                                visible={true}
+                                height="80"
+                                width="80"
+                                color="#2A91EB"
+                                ariaLabel="tail-spin-loading"
+                                radius="1"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                            />
+                        </div>
                     </div>
-                </div>
-            </main>
+                </main>
         )
     }
 
@@ -75,11 +77,14 @@ export default function Home() {
                 <Navbar/>
                 <h1>No products found</h1>
             </main>
+
         )
     }
 
     return (
+
         <ProductPage initialProducts={products}/>
+
     );
 }
 

@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewSeller from '@/components/NewSeller';
 import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 import Navbar from '@/components/Navbar';
@@ -7,16 +7,11 @@ import AddProduct from '@/components/AddProduct';
 import { SidebarMain } from '@/components/SidebarMain';
 
 
-
 export default function Dashboard() {
     const {isAuthenticated, user} = useKindeBrowserClient();
     const [isSeller, setIsSeller] = useState<any>(false);
     const [loading, setLoading] = useState<boolean>(true);
     // const [shopName, setShopName] = useState(`${localStorage.getItem("shopName")}`);
-
-    const [open, setOpen] = useState<boolean>(false);
-    const [value, setValue] = useState('');
-
 
 
     const verifyUserLocally = async () => {

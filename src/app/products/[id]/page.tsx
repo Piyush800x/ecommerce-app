@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb";
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import { PaperPlaneIcon, ArrowTopRightIcon } from '@radix-ui/react-icons'
 
 interface Product {
     _id: ObjectId;
@@ -62,10 +65,24 @@ export default function ProductPage({params}: any) {
             <Navbar/>
             <div className="container mx-auto p-4">
                 {products.map((product) => (
-                    <div key={`${product._id}`}>
-                        <h1 className="text-2xl font-bold">{product.title}</h1>
-                        <p className="mt-4">{product.description}</p>
-                        <p className="mt-4 text-lg font-semibold">Price: ₹{product.price}</p>
+                    <div key={`${product._id}`} className="flex">
+                        <Image 
+                            src={`${product.imageUrl}`} 
+                            alt={`${product.title}`} 
+                            width={500} 
+                            height={500} 
+                            className="my-6 mr-4 border"
+                        />
+                        <div className="mt-5 ml-2">
+                            <h1 className="text-4xl font-bold mb-1">{product.title}</h1>
+                            <p className="text-lg mb-2">{product.description}</p>
+                            <p className="text-lg font-semibold">Price: <span className="text-2xl text-green-500">₹{product.price}</span></p>
+
+                            <div className="flex gap-2 mt-2">
+                                <Button className='bg-blue-500 hover:bg-blue-400'>Buy now<ArrowTopRightIcon className="size-5"/></Button>
+                                <Button variant="outline">Add to cart</Button>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -1,23 +1,44 @@
 // components/ProductCard.tsx
-import { FC } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 
-interface ProductCardProps {
-    product: {
-        _id: ObjectId;
-        title: string;
-        description: string;
-        price: number;
-        imageUrl: string;
-        shopName: string,
-        category: string;
-    };
+
+interface Product {
+    _id: ObjectId;
+    title: string;
+    description: string;
+    price: string;
+    imageUrl: string;
+    shopName: string,
+    category: string;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product }) => {
+const ProductCard = ({ product }: {product: Product}) => {
+    const [cart, setCart] = useState(() => {
+        const savedCart = localStorage.getItem('cart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    })
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+
+    const addToCart = (newItem: Product) => {
+        console.log(`${newItem.title} added to cart`);
+        // setCart((prevCart: any) => [...prevCart, product]);
+
+        // Retrieve the existing cart from localStorage
+        let item = `${localStorage.getItem('cart')}`
+        let cart = JSON.parse(item) || [];
+
+        // If item doesn't exist, add it to the cart
+        cart.push(newItem);
+        setCart(cart)
+    };
+
     return (
         <div className="border rounded-lg p-4">
             <Image src={`${product.imageUrl}`} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={192} height={192}/>
@@ -27,7 +48,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
             <div className='flex gap-2 pt-2 w-full'>
                 <Button className='bg-blue-500 hover:bg-blue-400'>Buy now</Button>
-                <Button variant="outline">Add to cart</Button>
+                <Button variant="outline" onClick={() => addToCart(product)}>Add to cart</Button>
                 <Link href={`/products/${product._id}`}><Button variant="outline">View</Button></Link>
             </div>
         </div>
