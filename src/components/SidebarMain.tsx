@@ -60,7 +60,7 @@ export function SidebarMain() {
     return (
         <div
             className={cn(
-                "rounded-md flex flex-col pt-4 md:flex-row w-full flex-1 border overflow-visible",
+                "rounded-md flex flex-col pt-4 md:flex-row w-full flex-1 border overflow-y-hidden ",
                 "h-dvh" // for your use case, use `h-dvh` instead of `h-[60vh]`
             )}
         >
@@ -89,9 +89,10 @@ export function SidebarMain() {
 }
 
 export const Logo = () => {
-  return (
+    const shopName = localStorage.getItem("shopName");
+    return (
     <Link
-      href="#"
+      href="/seller"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
@@ -100,7 +101,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Seller Panel
+        {shopName || "Seller Panel"}
       </motion.span>
     </Link>
   );

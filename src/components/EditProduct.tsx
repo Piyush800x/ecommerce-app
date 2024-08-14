@@ -8,7 +8,6 @@ import {
   SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -29,6 +28,7 @@ const EditProduct = () => {
     const [editingProduct, setEditingProduct] = useState<any>(null);
     const [formData, setFormData] = useState<any>({});
     const shopName = localStorage.getItem("shopName")
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -43,6 +43,7 @@ const EditProduct = () => {
             if (data.success) {
                 setProducts(data.products);
             }
+            setLoading(false);
         };
 
         fetchProducts();
@@ -77,11 +78,20 @@ const EditProduct = () => {
         }
     };
 
-    if (!products) {
+    if (loading) {
         return (
             <div>
                 <h1 className="text-center text-2xl font-semibold">Edit your products in {shopName}</h1>
                 <p>Loading...</p>
+            </div>
+        )
+    }
+
+    if (products.length === 0) {
+        return (
+            <div className='flex flex-col items-center'>
+                <h1 className="text-center text-2xl font-semibold">Edit your products in {shopName}</h1>
+                <p>You have no products listed</p>
             </div>
         )
     }

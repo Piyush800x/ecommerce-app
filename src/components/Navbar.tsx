@@ -1,10 +1,8 @@
 import Link from "next/link"
-import { PersonIcon, EnterIcon, ExitIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { PersonIcon, EnterIcon, ExitIcon, MagnifyingGlassIcon, ArchiveIcon } from '@radix-ui/react-icons'
 import { Input } from "@/components/ui/input"
 import { RegisterLink, LoginLink, useKindeBrowserClient, LogoutLink } from "@kinde-oss/kinde-auth-nextjs"
 import Searchbar from "./Searchbar"
-import { useState } from "react"
-
 
 export default function Navbar({setProducts}: any) {
     const {isAuthenticated} = useKindeBrowserClient();
@@ -31,6 +29,7 @@ export default function Navbar({setProducts}: any) {
                     </div>
                 </div>
                 <div className={!isAuthenticated ? "hidden" : "flex"}>
+                    <Link href="/cart" className="flex items-center gap-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ArchiveIcon/></Link>
                     <LogoutLink className="flex items-center gap-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ExitIcon className="size-5"/>Logout</LogoutLink>
                 </div>
             </div>

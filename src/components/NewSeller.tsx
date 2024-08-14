@@ -2,10 +2,25 @@
 import { useState } from "react"
 import { Button } from "./ui/button";
 import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
+import { Input } from "./ui/input";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { CheckIcon } from "@radix-ui/react-icons";
+
+export function showDialog() {
+    return (
+        <Alert>
+            <CheckIcon width={5} height={5}/>
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+                You Shop is successfully registered!
+            </AlertDescription>
+        </Alert>
+    )
+}
 
 export default function NewSeller() {
-    const [shopName, setShopName] = useState<string | null>();
-    const [gstNo, setGSTNo] = useState<string | null>();
+    const [shopName, setShopName] = useState<string | null>('');
+    const [gstNo, setGSTNo] = useState<string | null>('');
     const {user} = useKindeBrowserClient();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -30,14 +45,24 @@ export default function NewSeller() {
         if (res.ok) {
             localStorage.setItem("shopName", `${shopName}`)
             alert('Seller Registered!');
+            showDialog();
         }
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="name" value={`${shopName}`} onChange={(e) => setShopName(e.target.value)} placeholder="Enter show name" required/>
-            <input type="name" value={`${gstNo}`}  onChange={(e) => setGSTNo(e.target.value)} placeholder="Enter GST No" required/>
-            <Button type="submit">Submit</Button>
-        </form>
+        <div className="flex flex-col items-center">
+            <h1 className="font-semibold text-2xl py-2">Want to become a seller?</h1>
+            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-y-2">
+                <div>
+                    <h2>Shop Name</h2>
+                    <Input type="name" value={`${shopName}`} onChange={(e) => setShopName(e.target.value)} placeholder="Enter shop name" required/>
+                </div>
+                <div>
+                    <h2>GST No</h2>
+                    <Input type="name" value={`${gstNo}`}  onChange={(e) => setGSTNo(e.target.value)} placeholder="Enter GST No" required/>
+                </div>
+                <Button type="submit">Submit</Button>
+            </form>
+        </div>
     )
 }

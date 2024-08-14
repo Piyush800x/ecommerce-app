@@ -16,6 +16,7 @@ interface Product {
 export default function DeleteProduct() {
     const [products, setProducts] = useState<Product[]>([]);
     const shopName = localStorage.getItem("shopName")
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -28,6 +29,7 @@ export default function DeleteProduct() {
             });
             const data = await res.json();
             setProducts(data.products);
+            setLoading(false);
         }
 
         fetchProducts();
@@ -48,6 +50,18 @@ export default function DeleteProduct() {
             alert('Failed to delete the product');
         }
     };
+
+    if (loading) {
+        return (
+            <p>Loading...</p>
+        )
+    }
+
+    if (products.length === 0) {
+        return (
+            <h1 className="text-3xl font-semibold mb-2 text-center">You have no products listed at {shopName}</h1>
+        )
+    }
 
     return (
         <div>

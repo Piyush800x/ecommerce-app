@@ -9,7 +9,9 @@ import { SidebarMain } from '@/components/SidebarMain';
 
 export default function Dashboard() {
     const {isAuthenticated, user} = useKindeBrowserClient();
-    const [isSeller, setIsSeller] = useState<any>(false);
+    const [isSeller, setIsSeller] = useState<any>(() => {
+        String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false
+    });
     const [loading, setLoading] = useState<boolean>(true);
     // const [shopName, setShopName] = useState(`${localStorage.getItem("shopName")}`);
 
@@ -49,6 +51,7 @@ export default function Dashboard() {
                     console.log(`res: ${data}`);
                     setIsSeller(true);
                     localStorage.setItem("isSeller", `${true}`);
+                    localStorage.setItem("shopName", data.data.shopName);
                 }
             }
             setLoading(false);
@@ -66,16 +69,32 @@ export default function Dashboard() {
     }, [isAuthenticated]);
 
     if (loading) {
-        return <div>Loading...</div>
-    }
-
-    if (!isSeller) {
         return (
             <main>
                 <Navbar/>
-                <NewSeller/>
+                <p>Loading...</p>
             </main>
         )
+    }
+
+    if (!loading) {
+        if (!isAuthenticated) {
+            return (
+                <main>
+                    <Navbar/>
+                    <p>You must login or register to access this page.</p>
+                </main>
+            )
+        }
+
+        if (!isSeller) {
+            return (
+                <main>
+                    <Navbar/>
+                    <NewSeller/>
+                </main>
+            )
+        }
     }
 
     return (

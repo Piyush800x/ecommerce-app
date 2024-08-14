@@ -10,6 +10,8 @@ import {
   } from "@/components/ui/alert"
 import { TailSpin } from 'react-loader-spinner';
 import { ObjectId } from 'mongodb';
+import { Button } from '@/components/ui/button';
+import { showDialog } from '@/components/NewSeller';
 
 interface Product {
     _id: ObjectId;
@@ -94,6 +96,7 @@ function ProductPage({initialProducts}: any) {
     return (
         <main>
             <Navbar setProducts={setProducts}/>
+            {/* <Button onClick={() => showDialog()}>Click Me</Button>  // test this alert plz */}
             <div className="container mx-auto">
                 <h1 className="text-3xl font-bold my-2">Products</h1>
                 <div className="grid grid-cols-3 gap-4">
