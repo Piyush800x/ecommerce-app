@@ -21,22 +21,31 @@ const ProductCard = ({ product }: {product: Product}) => {
         const savedCart = localStorage.getItem('cart');
         return savedCart ? JSON.parse(savedCart) : [];
     })
+    // const index = cart.findIndex((item: Product) => item._id === product._id);
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
 
-    const addToCart = (newItem: Product) => {
+    const addToCart = (newItem: Product, quantity = 1) => {
         console.log(`${newItem.title} added to cart`);
         // setCart((prevCart: any) => [...prevCart, product]);
 
         // Retrieve the existing cart from localStorage
         let item = `${localStorage.getItem('cart')}`
         let cart = JSON.parse(item) || [];
-
-        // If item doesn't exist, add it to the cart
-        cart.push(newItem);
-        setCart(cart)
+        const index = cart.findIndex((item: Product) => item._id === product._id);
+        // // If item doesn't exist, add it to the cart
+        // cart.push(newItem);
+        // setCart(cart)
+        if (index !== -1) {
+            // Product already exists, update the quantity
+            cart[index].quantity += quantity;
+        } else {
+            // Add new product with quantity
+            cart.push({ ...product, quantity });
+        }
+        setCart(cart);
     };
 
     return (

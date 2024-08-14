@@ -29,7 +29,7 @@ export default function Navbar({setProducts}: any) {
                     </div>
                 </div>
                 <div className={!isAuthenticated ? "hidden" : "flex"}>
-                    <Link href="/cart" className="flex items-center gap-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ArchiveIcon/></Link>
+                    <Link href="/cart" className="flex items-center gap-2 mx-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ArchiveIcon width={20} height={20}/></Link>
                     <LogoutLink className="flex items-center gap-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ExitIcon className="size-5"/>Logout</LogoutLink>
                 </div>
             </div>
