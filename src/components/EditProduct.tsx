@@ -12,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { Toaster, toast } from 'sonner'
 
 interface Product {
     _id: string;
@@ -73,8 +74,9 @@ const EditProduct = () => {
         if (data.success) {
             setProducts(prev => prev.map(p => (p._id === editingProduct._id ? formData : p)));
             setEditingProduct(null);
+            toast.success("Product Edited Successfully!")
         } else {
-            alert("Failed to update product");
+            toast.error("Can't edit your product!")
         }
     };
 
@@ -98,6 +100,7 @@ const EditProduct = () => {
 
     return (
         <div>
+            <Toaster/>
             <h1 className="text-center text-2xl font-semibold">Edit your products in {shopName}</h1>
             <ul className="flex flex-col">
                 {products.map((product: any) => (

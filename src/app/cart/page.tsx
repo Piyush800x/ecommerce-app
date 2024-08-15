@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ObjectId } from "mongodb";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Product {
     _id: ObjectId;
@@ -19,6 +20,11 @@ interface Product {
 export default function CartPage() {
     const [cart, setCart] = useState<Product[]>([]);
     const [cartValue, setCartValue] = useState<number>(0);
+    const router = useRouter();
+
+    const handleCheckout = () => {
+        router.push('/checkout');
+    }
 
     // Fetch cart data from localStorage on component mount
     useEffect(() => {
@@ -108,7 +114,7 @@ export default function CartPage() {
                     <div>
                         <h2 className="text-3xl">Price: ₹{cartValue}</h2>
                         <h1 className="text-xl">Cart Size: {cart.length}</h1>
-                        <Button className="my-2">Checkout</Button>
+                        <Button className="my-2" onClick={() => handleCheckout()}>Checkout</Button>
                     </div >
                 </div>
             </div>

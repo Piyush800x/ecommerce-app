@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { Toaster, toast } from 'sonner'
 
 interface Product {
     _id: string;
@@ -44,8 +45,8 @@ export default function DeleteProduct() {
             },
         });
         if (res.ok) {
-            alert("Product deleted")
             setProducts(products.filter((product) => product._id !== id));
+            toast.success("Product Deleted.")
         } else {
             alert('Failed to delete the product');
         }
@@ -65,10 +66,11 @@ export default function DeleteProduct() {
 
     return (
         <div>
+            <Toaster/>
             <h1 className="text-3xl font-semibold mb-2">Products in {shopName}</h1>
-            <ul>
+            <div>
                 {products.map((product) => (
-                    <li key={product._id} className="flex justify-between">
+                    <div key={product._id} className="flex justify-between">
                         <div className="border rounded-lg p-4">
                             <Image src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={400} height={200}/>
                             <h2 className="text-xl font-bold mt-2">{product.title}</h2>
@@ -79,9 +81,9 @@ export default function DeleteProduct() {
                                 <Button onClick={() => deleteProduct(product._id)} className='bg-red-500 hover:bg-red-400'>Delete</Button>
                             </div>
                         </div>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     )
 }

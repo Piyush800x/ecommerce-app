@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Toaster, toast } from 'sonner';
 
 const categories = [
     {
@@ -86,7 +87,7 @@ export default function AddProduct() {
             body: JSON.stringify(formData),
         });
         if (res.ok) {
-            alert('Product added!');
+            toast.success("Product added successfully!")
         }
     };
 
@@ -99,6 +100,7 @@ export default function AddProduct() {
 
     return (
         <div className="container mx-auto flex flex-col justify-center items-center">
+                <Toaster richColors/>
                 <h1 className="text-3xl font-bold mb-2">Add Product</h1>
                 <form onSubmit={handleSubmit} className='flex flex-col gap-2 w-1/2'>
                     <Input 
