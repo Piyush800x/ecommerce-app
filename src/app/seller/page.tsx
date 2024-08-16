@@ -19,7 +19,15 @@ export default function Dashboard() {
     // const [shopName, setShopName] = useState(`${localStorage.getItem("shopName")}`);
 
     const getSeller = async () => {
-        setIsSeller(String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false);
+        const val = localStorage.getItem("isSeller")?.toLowerCase();
+        console.log(val);
+        if (val == null) {
+            setIsSeller(false)
+        }
+        else {
+            setIsSeller(true)
+        }
+        // setIsSeller(String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false);
     }
 
     const verifyUserLocally = async () => {
@@ -111,7 +119,6 @@ export default function Dashboard() {
                 </main>
             )
         }
-
         if (!isSeller) {
             return (
                 <main>
