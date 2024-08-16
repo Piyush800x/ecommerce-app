@@ -9,15 +9,9 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { useState } from "react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { Toaster, toast } from 'sonner'
 
 export default function NewAddress() {
     const {isAuthenticated, user} = useKindeBrowserClient();
@@ -44,9 +38,7 @@ export default function NewAddress() {
             })
             const resData = await res.json();
             if (resData.success) {
-                // console.log(data.products)
-                alert("Address saved!")
-                // console.log(products);
+                toast.success("Address Saved!")
             }
         }
         catch (error) {
@@ -56,6 +48,7 @@ export default function NewAddress() {
 
     return (
         <div className="justify-items-center">
+            <Toaster/>
             <Card className="w-2/4">
                 <CardHeader>
                     <CardTitle>Enter your address</CardTitle>
@@ -134,53 +127,6 @@ export default function NewAddress() {
                     <Button onClick={handleSubmit} className="w-full">Save</Button>
                 </CardFooter>
             </Card>
-
-            {/* <form className="flex flex-col">
-                <h1>Enter your address</h1>
-                <Input 
-                    type="text" 
-                    placeholder="House" 
-                    value={formData.house} 
-                    onChange={(e) => setFormData({ ...formData, house: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="Mobile no" 
-                    value={formData.mobile} 
-                    onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="Area" 
-                    value={formData.area} 
-                    onChange={(e) => setFormData({ ...formData, area: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="Landmark" 
-                    value={formData.landmark} 
-                    onChange={(e) => setFormData({ ...formData, landmark: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="City" 
-                    value={formData.city} 
-                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="State" 
-                    value={formData.state} 
-                    onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                />
-                <Input 
-                    type="text" 
-                    placeholder="Pin" 
-                    value={formData.mobile} 
-                    onChange={(e) => setFormData({ ...formData, pin: e.target.value })}
-                />
-            </form>
-            <button onClick={() => handleSubmit()}>Submit</button> */}
         </div>
     )
 }

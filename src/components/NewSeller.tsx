@@ -3,20 +3,7 @@ import { useState } from "react"
 import { Button } from "./ui/button";
 import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 import { Input } from "./ui/input";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { CheckIcon } from "@radix-ui/react-icons";
-
-export function showDialog() {
-    return (
-        <Alert>
-            <CheckIcon width={5} height={5}/>
-            <AlertTitle>Heads up!</AlertTitle>
-            <AlertDescription>
-                You Shop is successfully registered!
-            </AlertDescription>
-        </Alert>
-    )
-}
+import { Toaster, toast } from 'sonner'
 
 export default function NewSeller() {
     const [shopName, setShopName] = useState<string | null>('');
@@ -44,13 +31,13 @@ export default function NewSeller() {
         });
         if (res.ok) {
             localStorage.setItem("shopName", `${shopName}`)
-            alert('Seller Registered!');
-            showDialog();
+            toast.success(`${shopName} Successfully Regsitered!`);
         }
     }
 
     return (
         <div className="flex flex-col items-center">
+            <Toaster/>
             <h1 className="font-semibold text-2xl py-2">Want to become a seller?</h1>
             <form onSubmit={handleSubmit} className="flex flex-col items-center gap-y-2">
                 <div>

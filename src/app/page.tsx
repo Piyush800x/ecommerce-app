@@ -10,8 +10,6 @@ import {
   } from "@/components/ui/alert"
 import { TailSpin } from 'react-loader-spinner';
 import { ObjectId } from 'mongodb';
-import { Button } from '@/components/ui/button';
-import { showDialog } from '@/components/NewSeller';
 
 
 interface Product {

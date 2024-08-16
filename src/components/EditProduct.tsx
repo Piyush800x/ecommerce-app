@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { TailSpin } from 'react-loader-spinner';
 import Image from 'next/image';
 import {
   Sheet,
@@ -84,7 +85,18 @@ const EditProduct = () => {
         return (
             <div>
                 <h1 className="text-center text-2xl font-semibold">Edit your products in {shopName}</h1>
-                <p>Loading...</p>
+                <div className='h-dvh flex items-center justify-center'>
+                    <TailSpin
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#2A91EB"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                </div>
             </div>
         )
     }
@@ -101,17 +113,19 @@ const EditProduct = () => {
     return (
         <div>
             <Toaster/>
-            <h1 className="text-center text-2xl font-semibold">Edit your products in {shopName}</h1>
-            <ul className="flex flex-col">
+            <h1 className="text-center text-2xl font-semibold mb-2">Edit your products in {shopName}</h1>
+            <ul className="flex gap-2">
                 {products.map((product: any) => (
                     <li key={product._id}>
                         {/* <div>{product.title}</div> */}
-                        <Image src={product.imageUrl} alt={product.title} className="w-48 h-48 object-cover rounded-lg" width={192} height={192}/>
-                        <h2 className="text-xl font-bold mt-2">{product.title}</h2>
-                        <p className="text-gray-700">{product.description}</p>
-                        <p className="text-gray-700">{product.shopName}</p>
-                        <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
-                        <button className="px-2 py-2 w-16 text-white rounded-md bg-blue-500 hover:bg-blue-400" onClick={() => handleEditClick(product)}>Open</button>
+                        <div className=" flex flex-col p-4 border rounded-md w-max">
+                            <Image src={product.imageUrl} alt={product.title} className="w-48 h-48 object-contain rounded-lg" width={100} height={100}/>
+                            <h2 className="text-xl font-bold mt-2">{product.title}</h2>
+                            <p className="text-gray-700">{product.description}</p>
+                            <p className="text-gray-700">{product.shopName}</p>
+                            <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
+                            <Button className="px-2 py-2 w-16 text-white rounded-md bg-blue-500 hover:bg-blue-400" onClick={() => handleEditClick(product)}>Open</Button>
+                        
                         {editingProduct && (
                             <div>
                                 <Sheet>
@@ -174,8 +188,10 @@ const EditProduct = () => {
                                         </SheetContent>
                                     </Sheet>
                             </div>
+                            
                 
             )}
+            </div>
                     </li>
                 ))}
             </ul>

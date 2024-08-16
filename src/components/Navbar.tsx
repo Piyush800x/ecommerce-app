@@ -3,6 +3,7 @@ import { PersonIcon, EnterIcon, ExitIcon, MagnifyingGlassIcon, ArchiveIcon } fro
 import { Input } from "@/components/ui/input"
 import { RegisterLink, LoginLink, useKindeBrowserClient, LogoutLink } from "@kinde-oss/kinde-auth-nextjs"
 import Searchbar from "./Searchbar"
+import { ShoppingCart } from 'lucide-react';
 
 export default function Navbar({setProducts}: any) {
     const {isAuthenticated} = useKindeBrowserClient();
@@ -18,7 +19,7 @@ export default function Navbar({setProducts}: any) {
             <Searchbar setProducts={setProducts}/>
             <div className="flex justify-between gap-x-5">
                 <Link href='/' className="hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900">Home</Link>
-                <Link href="/store" className="hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900">Store</Link>
+                <Link href="/deals" className="hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900">Today's Deals</Link>
                 <Link href="/seller" className="hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900">Seller</Link>
             </div>
             <div className="flex gap-x-5">
@@ -29,7 +30,8 @@ export default function Navbar({setProducts}: any) {
                     </div>
                 </div>
                 <div className={!isAuthenticated ? "hidden" : "flex"}>
-                    <Link href="/cart" className="flex items-center gap-2 mx-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ArchiveIcon width={20} height={20}/></Link>
+                    <Link href="/orders" className="flex items-center gap-2 mx-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900">Orders</Link>
+                    <Link href="/cart" className="flex items-center gap-2 mx-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ShoppingCart/></Link>
                     <LogoutLink className="flex items-center gap-2 hover:transition ease-in-out hover:bg-white hover:rounded-md p-1 hover:text-slate-900"><ExitIcon className="size-5"/>Logout</LogoutLink>
                 </div>
             </div>

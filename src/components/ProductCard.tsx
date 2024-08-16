@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Toaster, toast } from 'sonner'
 
 
 interface Product {
@@ -21,11 +23,16 @@ const ProductCard = ({ product }: {product: Product}) => {
         const savedCart = localStorage.getItem('cart');
         return savedCart ? JSON.parse(savedCart) : [];
     })
-    // const index = cart.findIndex((item: Product) => item._id === product._id);
+    const router = useRouter();
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
+
+    const handleBuyNow = (newItem: Product, quantity = 1) => {
+        addToCart(newItem, quantity);
+        router.push("/checkout");
+    }
 
     const addToCart = (newItem: Product, quantity = 1) => {
         console.log(`${newItem.title} added to cart`);
@@ -46,17 +53,19 @@ const ProductCard = ({ product }: {product: Product}) => {
             cart.push({ ...product, quantity });
         }
         setCart(cart);
+        toast.success(`${newItem.title} added to cart!`);
     };
 
     return (
         <div className="border rounded-lg p-4">
+            <Toaster/>
             <Image src={`${product.imageUrl}`} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={192} height={192}/>
             <h2 className="text-xl font-bold mt-2">{product.title}</h2>
             <p className="text-gray-700">{product.description}</p>
             <p className="text-gray-700">{product.shopName}</p>
             <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
             <div className='flex gap-2 pt-2 w-full'>
-                <Button className='bg-blue-500 hover:bg-blue-400'>Buy now</Button>
+                <Button className='bg-blue-500 hover:bg-blue-400' onClick={() => handleBuyNow(product)}>Buy now</Button>
                 <Button variant="outline" onClick={() => addToCart(product)}>Add to cart</Button>
                 <Link href={`/products/${product._id}`}><Button variant="outline">View</Button></Link>
             </div>

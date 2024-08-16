@@ -20,6 +20,7 @@ import Image from "next/image";
 import { Toaster, toast } from 'sonner'
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { TailSpin } from 'react-loader-spinner';
 
 interface Product {
     _id: ObjectId;
@@ -61,6 +62,7 @@ export default function CheckoutPage() {
             const data = await res.json();
             if (data.success) {
                 toast.success("Order Placed Successfully!")
+                setCart([]);
             }
         }
         catch (error) {
@@ -132,12 +134,36 @@ export default function CheckoutPage() {
     
 
     if (loading) {
-        return (
-            <div>
-                <Navbar/>
-                <h1>Loading...</h1>
-            </div>
-        )
+        if (!isAuthenticated) {
+            return (
+                <main>
+                    <Navbar/>
+                    <div className='flex flex-col items-center px-5 py-5'>
+                        <p className='text-3xl pb-5 font-semibold'>You must login or register to access this page.</p>
+                        <Image unoptimized className='rounded-xl' src={`/gifs/annoyed.gif`} alt='annoyed' width={250} height={250}/>
+                    </div>
+                </main>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <Navbar/>
+                    <div className='h-dvh flex items-center justify-center'>
+                        <TailSpin
+                            visible={true}
+                            height="80"
+                            width="80"
+                            color="#2A91EB"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                        />
+                    </div>
+                </div>
+            )
+        }
     }
 
     if (address.length === 0) {

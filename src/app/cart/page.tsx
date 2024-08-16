@@ -81,7 +81,10 @@ export default function CartPage() {
         return (
             <main>
                 <Navbar/>
-                <h1>No items in cart!</h1>
+                <div className='flex flex-col items-center px-5 py-5'>
+                    <p className='text-3xl pb-5 font-semibold'>Your cart is empty!</p>
+                    <Image unoptimized className='rounded-xl' src={`/gifs/stare.gif`} alt='annoyed' width={250} height={250}/>
+                </div>
             </main>
         )
     }
@@ -89,33 +92,31 @@ export default function CartPage() {
     return (
         <main>
             <Navbar/>
-            <div className="flex flex-row mx-5">
-                <div className="flex flex-col items-stretch w-2/3">
+            <div className="flex flex-row justify-around mx-6 my-4 gap-4">
+                <div className="flex flex-col gap-2 items-stretch w-2/3">
                     {cart.map((product) => (
-                        <div key={`${product._id}`} className="flex items-center justify-between px-10 py-5 gap-x-5 border-black border mx-2 my-2 rounded-lg w-full"> 
-                            <div className="flex flex-row justify-start px-10 py-5 gap-x-5">
+                        <div key={`${product._id}`} className="flex items-center justify-between pr-4 gap-x-5 border mx-2 rounded-md w-full"> 
+                            <div className="flex flex-row items-center justify-start px-10 py-5 gap-x-5">
                                 <div className="">
-                                    <Image src={`${product.imageUrl}`} alt={`${product.title}`} height={200} width={100}/>
+                                    <Image src={`${product.imageUrl}`} alt={`${product.title}`} height={120} width={120}/>
                                 </div>
                                 <div className="flex flex-col justify-start">
-                                    <h2 className="text-3xl">{product.title}</h2>
-                                    <p className="text-base">{product.description}</p>
-                                    <p className="text-base">Quantity: {product.quantity}</p>
-                                    <p className="text-xl">₹{product.price}</p>
+                                    <h2 className="text-xl font-semibold">{product.title}</h2>
+                                    <p className="text-lg">{product.description}</p>
+                                    <p className="text-lg mt-1">Quantity: {product.quantity}</p>
+                                    <p className="text-lg font-semibold">₹{product.price}</p>
                                 </div>
                             </div>
                             <div className="flex items-center">
-                                <Button onClick={() => removeFromCart(product._id)}>Remove</Button>
+                                <Button onClick={() => removeFromCart(product._id)} variant="destructive">Remove</Button>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className="flex w-1/3 mx-5 my-2">
-                    <div>
-                        <h2 className="text-3xl">Price: ₹{cartValue}</h2>
-                        <h1 className="text-xl">Cart Size: {cart.length}</h1>
-                        <Button className="my-2" onClick={() => handleCheckout()}>Checkout</Button>
-                    </div >
+                <div className="rounded-md border p-4 h-max">
+                    <h2 className="text-xl">Total Price: <span className="font-semibold">₹{cartValue}</span></h2>
+                    <h1 className="text-lg">Cart Size: <span className="font-semibold">{cart.length}</span></h1>
+                    <Button className="my-2" onClick={() => handleCheckout()}>Checkout</Button>
                 </div>
             </div>
         </main>

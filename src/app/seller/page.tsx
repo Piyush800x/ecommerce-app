@@ -5,16 +5,22 @@ import {useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 import Navbar from '@/components/Navbar';
 import AddProduct from '@/components/AddProduct';
 import { SidebarMain } from '@/components/SidebarMain';
+import { TailSpin } from 'react-loader-spinner';
+import Image from 'next/image';
 
 
 export default function Dashboard() {
     const {isAuthenticated, user} = useKindeBrowserClient();
-    const [isSeller, setIsSeller] = useState<any>(() => {
-        String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false
-    });
+    // const [isSeller, setIsSeller] = useState<any>(() => {
+    //     String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false
+    // });
+    const [isSeller, setIsSeller] = useState<any>();
     const [loading, setLoading] = useState<boolean>(true);
     // const [shopName, setShopName] = useState(`${localStorage.getItem("shopName")}`);
 
+    const getSeller = async () => {
+        setIsSeller(String(localStorage.getItem("isSeller")?.toLowerCase() === 'true') || false);
+    }
 
     const verifyUserLocally = async () => {
         const data = localStorage.getItem("isSeller");
@@ -59,9 +65,14 @@ export default function Dashboard() {
         
     }
 
+    // useEffect(() => {
+    //     getSeller();
+    // }, [])
+
     useEffect(() => {
         if (isAuthenticated) {
             verifyUser();
+            getSeller();
         }
         else {
             setLoading(false);
@@ -72,7 +83,18 @@ export default function Dashboard() {
         return (
             <main>
                 <Navbar/>
-                <p>Loading...</p>
+                <div className='h-dvh flex items-center justify-center'>
+                    <TailSpin
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#2A91EB"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                </div>
             </main>
         )
     }
@@ -82,7 +104,10 @@ export default function Dashboard() {
             return (
                 <main>
                     <Navbar/>
-                    <p>You must login or register to access this page.</p>
+                    <div className='flex flex-col items-center px-5 py-5'>
+                        <p className='text-3xl pb-5 font-semibold'>You must login or register to access this page.</p>
+                        <Image unoptimized className='rounded-xl' src={`/gifs/annoyed.gif`} alt='annoyed' width={250} height={250}/>
+                    </div>
                 </main>
             )
         }

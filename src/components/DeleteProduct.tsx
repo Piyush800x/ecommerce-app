@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { Toaster, toast } from 'sonner'
+import { TailSpin } from 'react-loader-spinner';
 
 interface Product {
     _id: string;
@@ -54,7 +55,18 @@ export default function DeleteProduct() {
 
     if (loading) {
         return (
-            <p>Loading...</p>
+            <div className='h-dvh flex items-center justify-center'>
+                <TailSpin
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#2A91EB"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                />
+            </div>
         )
     }
 
@@ -67,18 +79,18 @@ export default function DeleteProduct() {
     return (
         <div>
             <Toaster/>
-            <h1 className="text-3xl font-semibold mb-2">Products in {shopName}</h1>
-            <div>
+            <h1 className="text-center text-2xl font-semibold mb-2">Products in {shopName}</h1>
+            <div className="flex gap-2">
                 {products.map((product) => (
-                    <div key={product._id} className="flex justify-between">
+                    <div key={product._id} className="flex">
                         <div className="border rounded-lg p-4">
-                            <Image src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded-lg" width={400} height={200}/>
+                            <Image src={product.imageUrl} alt={product.title} className="w-full h-48 object-contain rounded-lg" width={400} height={200}/>
                             <h2 className="text-xl font-bold mt-2">{product.title}</h2>
                             <p className="text-gray-700">{product.description}</p>
                             <p className="text-gray-700">{product.shopName}</p>
                             <p className="text-green-500 font-bold mt-2">₹{product.price}</p>
                             <div className='flex gap-2 pt-2 w-full'>
-                                <Button onClick={() => deleteProduct(product._id)} className='bg-red-500 hover:bg-red-400'>Delete</Button>
+                                <Button onClick={() => deleteProduct(product._id)} variant="destructive" className="w-full">Delete</Button>
                             </div>
                         </div>
                     </div>
